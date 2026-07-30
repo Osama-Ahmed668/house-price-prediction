@@ -1,18 +1,44 @@
+# Virtual Environment
 .venv/
-__pycache__/
-node_modules/
-dist/
-.env
-*.log
 
-notebooks/data/house_prices.csv
-models/house_price_model.pkl
-# Model files
-*.pkl
-
-# Python cache
+# Python Cache
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
 
-# Notebook temporary files
+# Node / React
+node_modules/
+dist/
+
+# Environment Files
+.env
+.env.*
+*.local
+
+# Logs
+*.log
+
+# Dataset
+notebooks/data/*.csv
+
+# Jupyter Temporary Files
+.ipynb_checkpoints/
 notebooks/data/*.ipynb
+
+# Machine Learning Models
+*.pkl
+*.joblib
+
+# Generated Files
+notebooks/data/*.json
+
+# Screenshots
+!screenshots/
+!screenshots/*.png
+
+# Editor Files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
