@@ -28,6 +28,7 @@ notebooks/data/*.ipynb
 
 # Machine Learning Models
 *.pkl
+!models/house_price.pkl
 *.joblib
 
 # Generated Files
