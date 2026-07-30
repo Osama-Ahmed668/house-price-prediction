@@ -7,3 +7,12 @@ dist/
 
 notebooks/data/house_prices.csv
 models/house_price_model.pkl
+# Model files
+*.pkl
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Notebook temporary files
+notebooks/data/*.ipynb
