@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+node_modules/
+dist/
+.env
+*.log
+
+notebooks/data/house_prices.csv
+models/house_price_model.pkl
