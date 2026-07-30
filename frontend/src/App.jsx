@@ -33,6 +33,7 @@ function App() {
   const predictPrice = async () => {
     try {
       setError("");
+      setResult("");
 
       const response = await fetch("http://127.0.0.1:8000/predict", {
         method: "POST",
@@ -51,20 +52,23 @@ function App() {
 
       const data = await response.json();
 
-      setResult(data.predicted_price);
+      if (!response.ok) {
+        setError(data.detail || "Prediction failed");
+        return;
+      }
+
+      setResult(data.predicted_price.toFixed(2));
 
     } catch (err) {
       setError("Something went wrong. Check the server.");
     }
   };
 
-
   const resetForm = () => {
     setFormData(initialData);
     setResult("");
     setError("");
   };
-
 
   const labels = {
     Amount_in_rupees: "Amount",
@@ -82,7 +86,6 @@ function App() {
     Ownership: "Ownership",
     Super_Area: "Super Area",
   };
-
 
   return (
     <div className="container">
@@ -102,16 +105,13 @@ function App() {
         ))}
       </div>
 
-
       <button onClick={predictPrice}>
         Predict Price
       </button>
 
-
       <button onClick={resetForm} className="reset">
         Reset
       </button>
-
 
       {result && (
         <div className="result">
@@ -119,7 +119,6 @@ function App() {
           <p>{result}</p>
         </div>
       )}
-
 
       {error && (
         <div className="error">
