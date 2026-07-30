@@ -2,24 +2,25 @@
 
 A Machine Learning web application that predicts house prices based on different property features.
 
-The project uses a trained Machine Learning model integrated with a FastAPI backend and React frontend.
+The project uses a trained Machine Learning regression model integrated with a FastAPI backend and React frontend to provide real-time house price predictions.
 
 ---
 
-## 🚀 Features
+# 🚀 Features
 
 - Predict house prices using Machine Learning.
 - FastAPI REST API for prediction.
 - React.js frontend interface.
 - User-friendly prediction form.
-- Machine Learning model integration using Joblib.
 - Real-time prediction through API requests.
+- Machine Learning model deployment using Joblib.
+- Data preprocessing and feature engineering pipeline.
 
 ---
 
-## 🛠️ Technologies Used
+# 🛠️ Technologies Used
 
-### Backend
+## Backend
 - Python
 - FastAPI
 - Pandas
@@ -27,22 +28,73 @@ The project uses a trained Machine Learning model integrated with a FastAPI back
 - Joblib
 - Uvicorn
 
-### Frontend
+## Frontend
 - React.js
 - Vite
 - CSS
 
-### Machine Learning
+## Machine Learning
 - Data preprocessing
 - Feature engineering
-- Regression model training
+- Regression models
+- Model evaluation
 - Model deployment
 
 ---
 
-## 📂 Project Structure
+# 📊 Dataset
 
-```text
+The project uses the House Price dataset from Kaggle:
+
+Dataset Link:
+
+https://www.kaggle.com/datasets/juhibhojani/house-price
+
+The dataset contains real estate listings from India with features such as:
+
+- Location
+- Carpet Area
+- Super Area
+- Bathroom
+- Balcony
+- Furnishing
+- Transaction
+- Ownership
+- Facing
+
+The raw dataset is not included in this repository because of its large size.
+
+Download the dataset from Kaggle and place it inside:
+
+```
+notebooks/data/
+```
+
+---
+
+# 🏗️ System Architecture
+
+```
+            React Frontend
+                  |
+                  |
+                  v
+            FastAPI Backend
+                  |
+                  |
+                  v
+      Machine Learning Pipeline
+                  |
+                  |
+                  v
+         House Price Prediction
+```
+
+---
+
+# 📂 Project Structure
+
+```
 house-price-prediction/
 
 │
@@ -63,6 +115,10 @@ house-price-prediction/
 │
 ├── notebooks/
 │   └── model_training.ipynb
+│
+├── screenshots/
+│   ├── frontend.png
+│   └── backend.png
 │
 └── README.md
 ```
@@ -115,8 +171,14 @@ uvicorn app.main:app --reload
 
 Backend will run on:
 
-```text
+```
 http://127.0.0.1:8000
+```
+
+API Documentation:
+
+```
+http://127.0.0.1:8000/docs
 ```
 
 ---
@@ -143,44 +205,57 @@ npm run dev
 
 Frontend will run on:
 
-```text
+```
 http://localhost:5173
 ```
 
 ---
 
-# 📌 API Endpoint
+# 📌 API Reference
 
-## Predict House Price
+## Health Check
 
-### Request
+GET:
 
-```http
-POST /predict
 ```
-
-Example JSON:
-
-```json
-{
-  "Amount_in_rupees": 5000000,
-  "location": 1,
-  "Carpet_Area": 1000,
-  "Status": 1,
-  "Floor": 5,
-  "Transaction": 1,
-  "Furnishing": 1,
-  "facing": 1,
-  "overlooking": 1,
-  "Bathroom": 2,
-  "Balcony": 1,
-  "Car_Parking": 1,
-  "Ownership": 1,
-  "Super_Area": 1200
-}
+/health
 ```
 
 Response:
+
+```json
+{
+  "status": "ok"
+}
+```
+
+---
+
+## Predict House Price
+
+POST:
+
+```
+/predict
+```
+
+Example Request:
+
+```json
+{
+  "location": "Mumbai",
+  "carpet_area_sqft": 1000,
+  "floor_num": 5,
+  "bathroom": 2,
+  "balcony": 1,
+  "furnishing": "Furnished",
+  "transaction": "New Property",
+  "ownership": "Freehold",
+  "facing": "East"
+}
+```
+
+Example Response:
 
 ```json
 {
@@ -190,17 +265,48 @@ Response:
 
 ---
 
-# 📸 Screenshot
+# 🔗 API Example using Curl
 
-## 📸 Screenshots
+```bash
+curl -X POST "http://127.0.0.1:8000/predict" \
+-H "Content-Type: application/json" \
+-d '{"location":"Mumbai","carpet_area_sqft":1000,"floor_num":5,"bathroom":2,"balcony":1,"furnishing":"Furnished","transaction":"New Property","ownership":"Freehold","facing":"East"}'
+```
 
-### Frontend Interface
+---
+
+# 📈 Model Performance
+
+The models were evaluated using the test dataset.
+
+| Model | MAE | RMSE | R² Score |
+|------|------|------|---------|
+| Random Forest | 1,018,075 | 4,076,377 | 0.908613 |
+| Gradient Boosting | 2,463,330 | 4,982,486 | 0.863470 |
+| Linear Regression | 4,414,958 | 8,287,687 | 0.622252 |
+
+### Model Selection
+
+Random Forest was selected as the final model because it achieved the highest R² score and the lowest error values compared to the other regression models.
+
+The final trained model was exported as:
+
+```
+models/house_price.pkl
+```
+
+---
+
+# 📸 Screenshots
+
+## Frontend Interface
 
 ![Frontend Screenshot](screenshots/frontend.png)
 
-### Backend API
+## Backend API
 
 ![Backend Screenshot](screenshots/backend.png)
+
 ---
 
 # 👨‍💻 Author
